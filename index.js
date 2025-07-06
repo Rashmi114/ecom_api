@@ -24,5 +24,5 @@ mongoose.connect(process.env.MONGO_URL).then(()=>{
         console.log(`🚀 Server running on http://localhost:${process.env.PORT}`)
     })
 }).catch(err=>{
-    console.err('MongoDB connection error:', err)
+    console.error('MongoDB connection error:', err)
 })
