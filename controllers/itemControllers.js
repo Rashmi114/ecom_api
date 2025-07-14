@@ -75,9 +75,9 @@ exports.deleteAllItems = async (req,res) =>{
 // const BASE_URL = 'http://localhost:5007';
 const BASE_URL = 'https://ecom-api-2dim.onrender.com';
 const menuIcon = {
-  "Electronics": `${BASE_URL}/icon/cpu.png`,
-  "Home": `${BASE_URL}/icon/house.png`,
-  "Sports": `${BASE_URL}/icon/game.png`,
+  "Electronics": `${BASE_URL}/icon/electronics.png`,
+  "Home": `${BASE_URL}/icon/home.png`,
+  "Sports": `${BASE_URL}/icon/sports.png`,
   "Appliances": `${BASE_URL}/icon/electric-appliance.png`,
   "Toys": `${BASE_URL}/icon/storage-box.png`
 }
@@ -107,7 +107,7 @@ exports.getMenuGroups = async (req,res) =>{
             return {
                 menuGroup,
                 menuCode,
-                menuGruopIcon: menuIcon[menuGroup] || 'http://localhost:5007/icon/default.png'
+                menuGruopIcon: menuIcon[menuGroup] || `${BASE_URL}/icon/default.png`
             }
         });
         res.status(200).json({message: 'Menu groups fetched successfully', status: 1, data: menuGroups});

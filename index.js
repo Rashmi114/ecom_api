@@ -20,6 +20,26 @@ app.get("/", (req, res) => {
   res.send("welcome to ecommerce apis");
 });
 
+const BASE_URL = 'http://localhost:5007';
+// const BASE_URL = 'https://ecom-api-2dim.onrender.com';
+const menuIcon = {
+  "Electronics": `${BASE_URL}/icon/cpu.png`,
+  "Home": `${BASE_URL}/icon/house.png`,
+  "Sports": `${BASE_URL}/icon/game.png`,
+  "Appliances": `${BASE_URL}/icon/electric-appliance.png`,
+  "Toys": `${BASE_URL}/icon/storage-box.png`
+}
+app.get('/debug-icon/:filename', (req, res) => {
+  const fs = require('fs');
+  const iconPath = path.join(__dirname, 'public/icon', req.params.filename);
+  if (fs.existsSync(iconPath)) {
+    res.sendFile(iconPath);
+  } else {
+    res.status(404).send('Icon file not found on server');
+  }
+});
+
+
 mongoose.connect(process.env.MONGO_URL).then(()=>{
     console.log('MongoDB connected')
     app.listen(process.env.PORT, ()=>{
