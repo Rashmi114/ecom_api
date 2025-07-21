@@ -39,3 +39,23 @@ exports.getSavedKot = async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error', status: 0, error: err.message})
     }
 }
+
+exports.getAllKots = async (req,res) => {
+    try {
+        const orders = await Order.find().sort({ kotNumber: 1});
+
+        const allOrders = orders.map(order=> {
+            const totalAmount = order.items.reduce(
+                (sum, item) => sum + item.amount * item.quantity, 0);
+                return {
+                    kotNumber: order.kotNumber,
+                    items: order.items,
+                    totalAmount: totalAmount,
+                    createdAt: order.createdAt
+                };
+        });
+        res.status(200).json({ message: 'Success', status: 1, kotDetails: allOrders});
+    } catch(err) {
+        res.status(500).json({message: 'Internal Server Error!', status: 0, error: err.message})
+    }
+}
