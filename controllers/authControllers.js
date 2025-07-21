@@ -35,7 +35,11 @@ exports.login = async(req,res)=>{
             process.env.JWT_SECRET,
             {expiresIn:'1h'}
         )
-        res.status(200).json({message: 'Login Successful',token: token, status: 1})
+        const userData = {
+            userId: user.userId,
+            userName: user.name
+        }
+        res.status(200).json({message: 'Login Successful',token: token, status: 1, user: userData})
     } catch(err){
         res.status(500).json({message: 'Internal Server Error', error: err.message, status: 0})
     }
