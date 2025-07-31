@@ -6,6 +6,7 @@ const dotenv = require('dotenv')
 const authRoutes = require('./routers/authRoutes')
 const itemRoutes = require('./routers/itemRoutes')
 const orderRoutes = require('./routers/orderRoutes')
+const prevRoutes = require('./routers/previewRoutes')
 const path = require('path')
 
 dotenv.config()
@@ -18,6 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/auth', authRoutes)
 app.use('/api/items', itemRoutes)
 app.use('/api/orders', orderRoutes)
+app.use('/api/prev', prevRoutes)
 app.get("/", (req, res) => {
   res.send("welcome to ecommerce apis");
 });
