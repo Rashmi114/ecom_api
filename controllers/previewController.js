@@ -4,7 +4,8 @@ const Order = require('../models/Order');
 exports.generateCheck = async (req ,res)=>{
  try{
     debugger
-    const {items, totalAmount, kotNumber} = req.body;
+    const {items, totalAmount, kotNumber, billNumber} = req.body;
+    // console.log("Body: ", req.body);
      if(!items || !Array.isArray(items) || items.length == 0){
             return res.status(400).json({ message: 'No items provided', status: 0 });
         } 
@@ -13,6 +14,9 @@ exports.generateCheck = async (req ,res)=>{
         }
         if (kotNumber == null) {
             return res.status(400).json({ message: 'KOTNumber not provided', status: 0 }); 
+        }
+        if (billNumber == null) {
+            return res.status(400).json({ message: 'billNumber not provided', status: 0 }); 
         }
         const kot = await Order.findOne({kotNumber});
         if (!kot) return res.status(404).json({ message: 'KOT not found' });
