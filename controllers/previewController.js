@@ -29,7 +29,7 @@ exports.generateCheck = async (req ,res)=>{
             kotNumber
         });
         await preview.save();
-        await Order.updateOne({ kotNumber }, {status: 'billed'}, { billNumber })
+        await Order.updateOne({ kotNumber }, {status: 'billed'}, { billNumber: newBillNumber })
         res.status(201).json({message: 'Check generated successfully', data: preview, status: 1});
  } catch (err) {
     res.status(500).json({message: "Internal Server Error", error: err.message, status: 0});
