@@ -12,6 +12,7 @@ const previewSchema = new mongoose.Schema({
     }],
     totalAmount: {type: Number, required: true},
     kotNumber: {type: Number, required: true},
+    billStatus: {type: String, enum: ['pending', 'settled'], default: 'pending'},
     createdAt: {type: Date, default: Date.now}
 })
 

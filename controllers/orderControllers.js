@@ -51,7 +51,9 @@ exports.getAllKots = async (req,res) => {
                     kotNumber: order.kotNumber,
                     items: order.items,
                     totalAmount: totalAmount,
-                    createdAt: order.createdAt
+                    billNumber: order.billNumber,
+                    kotStatus: order.status,
+                    createdAt: order.createdAt,
                 };
         });
         res.status(200).json({ message: 'Success', status: 1, kotDetails: allOrders});

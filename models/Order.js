@@ -10,6 +10,8 @@ const orderSchema = new mongoose.Schema({
     itemName: String,
     itemImage: String 
     }],
+    billNumber: {type: Number, default: 0},
+    status: {type: String, enum: ['open', 'billed'], default: 'open'},
     createdAt: {type: Date, default: Date.now}
 });
 

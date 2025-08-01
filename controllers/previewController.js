@@ -1,4 +1,5 @@
 const Preview = require('../models/Preview');
+const Order = require('../models/Order');
 
 exports.generateCheck = async (req ,res)=>{
  try{
@@ -13,6 +14,8 @@ exports.generateCheck = async (req ,res)=>{
         if (kotNumber == null) {
             return res.status(400).json({ message: 'KOTNumber not provided', status: 0 }); 
         }
+        const kot = await Order.findOne({kotNumber});
+        if (!kot) return res.status(404).json({ message: 'KOT not found' });
         const prev = await Preview.findOne().sort({billNumber : -1});
         const newBillNumber = prev ? prev.billNumber + 1 : 1;
         const preview = new Preview({
@@ -22,6 +25,7 @@ exports.generateCheck = async (req ,res)=>{
             kotNumber
         });
         await preview.save();
+        await Order.updateOne({ kotNumber }, {status: 'billed'}, { billNumber })
         res.status(201).json({message: 'Check generated successfully', data: preview, status: 1});
  } catch (err) {
     res.status(500).json({message: "Internal Server Error", error: err.message, status: 0});
@@ -37,6 +41,7 @@ exports.getPendingBills = async (req, res)=>{
                     kotNumber: bills.kotNumber,
                     items: bills.items,
                     totalAmount: bills.totalAmount,
+                    billStatus: bills.billStatus,
                     createdAt: bills.createdAt
                 };
         });
