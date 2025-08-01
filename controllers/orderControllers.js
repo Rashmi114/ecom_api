@@ -33,6 +33,8 @@ exports.getSavedKot = async (req, res) => {
             status: 1,
             kotNumber: order.kotNumber,
             items: order.items,
+            billNumber: order.billNumber,
+            kotStatus: order.status,
             totalAmount: totalAmount
         });
     } catch(err) {
